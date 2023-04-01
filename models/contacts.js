@@ -30,6 +30,10 @@ const removeContact = async (contactId) => {
   const contacts = await listContacts();
   // here we're finding the unique element of the array of contacts
   const index = contacts.findIndex((item) => item.id === contactId);
+
+  if (index === -1) {
+    return false;
+  }
   // here we're deleting a unique id from the array of contacts 
   contacts.splice(index, 1)
   // we're stringifying the array, with no special formatting options needed (null) as a second parameter, 
@@ -38,7 +42,7 @@ const removeContact = async (contactId) => {
   // here we're writing a file to path to the contacts.json. We're basically using PUT, rewriting our code to add a stringified object to the str array of objects
   await fs.writeFile(contactsPath, stringedContacts)
   // and return the array to display on browser
-  return contacts;
+  return contacts || null;
 }
 // in asynchronic function with an object parameter...
 const addContact = async (body) => {
@@ -69,6 +73,10 @@ const updateContact = async (contactId, body) => {
   const contacts = await listContacts();
   // we're seeking for the desired contact in the array of contacts
   const contact = contacts.find(item => item.id === contactId);
+  console.log(contact)
+  if (!contact) {
+    return false;
+  }
 
   // and pasting new values into the properties of the old object
   contact.name = name;
