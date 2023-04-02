@@ -73,15 +73,20 @@ const updateContact = async (contactId, body) => {
   const contacts = await listContacts();
   // we're seeking for the desired contact in the array of contacts
   const contact = contacts.find(item => item.id === contactId);
-  console.log(contact)
-  if (!contact) {
+  if (!name && !email && !phone) {
     return false;
   }
 
   // and pasting new values into the properties of the old object
-  contact.name = name;
-  contact.email = email;
-  contact.phone = phone;
+  if (name) {
+    contact.name = name;
+  }
+  if (email) {
+    contact.email = email;
+  }
+  if (phone) {
+    contact.phone = phone;
+  }
 
   const stringedContacts = JSON.stringify(contacts, null, 2);
   await fs.writeFile(contactsPath, stringedContacts);

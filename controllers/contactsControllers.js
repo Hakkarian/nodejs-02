@@ -94,11 +94,12 @@ const updateContact = async (req, res, next) => {
       phone,
     });
     if (!result) {
-      throw ErrorHandler(404);
+      throw ErrorHandler(400)
     }
+    console.log("wrong")
     res.json(result);
   } catch (error) {
-    next(error);
+    res.status(400).json({message: "missing fields"})
   }
 };
 

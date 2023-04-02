@@ -37,16 +37,16 @@ module.exports = {
       // we're instanciating a Joi object for validation specific properties...
       const addSchema = Joi.object({
         // all properties are strings, and they are required
-        name: Joi.string().optional(),
-        email: Joi.string().optional(),
-        phone: Joi.string().optional()
+        name: Joi.string().required(),
+        email: Joi.string().required(),
+        phone: Joi.string().required()
       });
       const { name, email, phone } = req.body;
       if (!name && !email && !phone) {
+        console.log("verified")
         validateError(req, addSchema, 400, "missing fields");
         next();
       }
-      validateError(req, addSchema, 400, "missing fields");
       next();
     }
 }
