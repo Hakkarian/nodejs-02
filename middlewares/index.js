@@ -1,5 +1,5 @@
-const {validateAddData, validatePutData} = require('./validateData');
-
+const {validateAddSchema, validatePutSchema, validateFavoriteSchema} = require('./validateData');
+const isValidId = require('./isValidId');
 module.exports = {
-    validateAddData, validatePutData
+    validateAddSchema, validatePutSchema, validateFavoriteSchema, isValidId
 }
