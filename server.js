@@ -6,7 +6,9 @@ const app = require('./app')
 // const DB_HOST = "mongodb+srv://theobadar:Ajsx3th5d@cluster0.ebd3muh.mongodb.net/edunode";
 // we're instanciating a localhost with arguments, passed to the method, specifically 3000 number of a port, and a function with message, displayed in the console window
 
-mongoose.connect(process.env.DB_HOST).then(() => app.listen(3000, () => {
+const { DB_HOST, PORT } = process.env;
+
+mongoose.connect(DB_HOST).then(() => app.listen(PORT, () => {
   console.log("Database connection succesful")
 })).catch(error => {
   console.log(error.message)

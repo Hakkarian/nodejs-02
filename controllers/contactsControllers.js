@@ -28,7 +28,6 @@ const getContactById = async (req, res) => {
   const { contactId } = req.params;
   // ...intanciating the result of asynchronic getting contact by id function
   const result = await Contact.findById(contactId);
-  console.log(contactId);
   // if we don't have the result...
   if (!result) {
     // ...skip further instructions and move to the catch block.
@@ -59,7 +58,6 @@ const removeContact = async (req, res) => {
   // ...intanciating the result of asynchronic deleting contact by id function
   // important - if we choose deleteOne, we are passing an entire object, if findById - only an id argument
   const result = await Contact.findByIdAndRemove(contactId)
-  console.log(result);
   // if we don't have the result...
   if (!result) {
     // ...skip further instructions, display the message and move to the catch block.
@@ -91,7 +89,7 @@ const updateStatusContact = async (req, res) => {
   if (!result) {
     throw ErrorHandler(404);
   }
-  console.log(result)
+
   res.status(200).json(result);
 };
 

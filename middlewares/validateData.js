@@ -45,7 +45,6 @@ module.exports = {
       favorite: Joi.boolean().required(),
     });
     const { favorite } = req.body;
-    console.log(!favorite)
       if (!favorite) {
           validateError(req, schema, 400, "missing field favorite");
           next()
