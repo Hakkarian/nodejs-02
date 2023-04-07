@@ -1,52 +1,55 @@
-// the joi library for validation and ensuring that the data meets acceptible criteria before the using of app
-const Joi = require("joi");
+const Joi = require('joi');
+const { validateError } = require('../shared/validateError');
 
-const { validateError } = require("../shared");
+
 
 module.exports = {
-    validateAddData: (req, res, next) => {
-      // we're instanciating a Joi object for validation specific properties...
-      const addSchema = Joi.object({
-        // all properties are strings, and they are required
-        name: Joi.string().required(),
-        email: Joi.string().required(),
-        phone: Joi.string().required(),
-      });
-        
-    const { name, email, phone } = req.body;
-    if (!name && !email && !phone) {
-      validateError(req, addSchema, 400, "missing fields");
-      next();
-    }
-        if (!name) {
-            validateError(req, addSchema, 400, "missing required name field");
-            next();
-        }
-        if (!email) {
-            validateError(req, addSchema, 400, "missing required email field");
-            next();
-        }
-        if (!phone) {
-            validateError(req, addSchema, 400, "missing required phone field");
-            next();
-    }
-    validateError(req, addSchema, 400, "missing fields");
+  validateAddSchema: (req, res, next) => {
+    // we're instanciating a Joi object for validation specific properties...
+    const addSchema = Joi.object({
+      // all properties are strings, and they are required
+      name: Joi.string().required(),
+      email: Joi.string().required(),
+      phone: Joi.string().required(),
+    });
+    const { name, email, phone, favorite } = req.body;
+    !name && !email && !phone && !favorite
+      ? validateError(req, addSchema, 400, "missing fields")
+      : !name
+      ? validateError(req, addSchema, 400, "missing required name field")
+      : !email
+      ? validateError(req, addSchema, 400, "missing required email field")
+      : !phone &&
+        validateError(req, addSchema, 400, "missing required phone field");
     next();
-    },
-    validatePutData: (req, res, next) => {
-      // we're instanciating a Joi object for validation specific properties...
-      const addSchema = Joi.object({
-        // all properties are strings, and they are required
-        name: Joi.string().required(),
-        email: Joi.string().required(),
-        phone: Joi.string().required()
-      });
-      const { name, email, phone } = req.body;
-      if (!name && !email && !phone) {
-        console.log("verified")
-        validateError(req, addSchema, 400, "missing fields");
-        next();
-      }
-      next();
-    }
-}
+  },
+  validatePutSchema: (req, res, next) => {
+    // we're instanciating a Joi object for validation specific properties...
+    const addSchema = Joi.object({
+      // all properties are strings, and they are required
+      name: Joi.string().required(),
+      email: Joi.string().required(),
+      phone: Joi.string().required(),
+
+    });
+    const { name, email, phone, favorite } = req.body;
+    !name &&
+      !email &&
+      !phone &&
+      !favorite &&
+      validateError(req, addSchema, 400, "missing fields");
+    next();
+  },
+  validateFavoriteSchema: (req, res, next) => {
+    const schema = Joi.object({
+      favorite: Joi.boolean().required(),
+    });
+    const { favorite } = req.body;
+      if (!favorite) {
+          validateError(req, schema, 400, "missing field favorite");
+          next()
+      }  
+      console.log("validateFavorite")
+    next();
+  },
+};
