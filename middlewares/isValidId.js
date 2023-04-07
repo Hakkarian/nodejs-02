@@ -7,7 +7,7 @@ const isValidId = (req, res, next) => {
     console.log(isValidObjectId(contactId));
     if (!isValidObjectId(contactId)) {
         console.log("here!")
-        next(ErrorHandler(400, 'Not a valid id'))
+        next(ErrorHandler(400, 'Not found'))
     }
     next()
 }
