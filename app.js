@@ -6,6 +6,7 @@ const logger = require("morgan");
 // Cross-Origin-Resourse-Sharing (CORS) allows to allow requests from another domain
 const cors = require("cors");
 require('dotenv').config();
+const authRouter = require('./routes/api/auth');
 // here we're importing a router for contacts in the specified path
 const contactsRouter = require("./routes/api/contacts");
 // we're declaring an app by calling an exress function
@@ -23,6 +24,8 @@ app.use(logger(formatsLogger));
 app.use(cors());
 // we will receive a data from the request in the json-format
 app.use(express.json());
+
+app.use("/api/auth", authRouter)
 // we're specifying a path and going for router for contacts
 app.use("/api/contacts", contactsRouter);
 
