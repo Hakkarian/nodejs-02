@@ -3,8 +3,11 @@ const { Contact } = require("../../models");
 
 const filterContact = async (req, res) => {
   const { favorite } = req.query;
+  const { _id} = req.user
+  console.log(req)
 
-  const result = await Contact.find({ favorite });
+  const result = await Contact.find({ _id, favorite });
+  console.log(result)
   if (!result) {
     throw ErrorHandler(404);
   }

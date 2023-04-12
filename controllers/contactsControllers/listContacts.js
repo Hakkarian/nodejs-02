@@ -8,7 +8,7 @@ const listContacts = async (req, res) => {
   const skip = (page - 1) * limit;
 
   if (favorite) {
-    const favorites = await Contact.find({ favorite }).populate(
+    const favorites = await Contact.find({ owner, favorite }).populate(
       "owner",
       "email subscription"
     );
