@@ -3,7 +3,7 @@ const { ErrorHandler, ctrlWrapper } = require("../../helpers");
 const { User } = require("../../models");
 
 
-const signup = async (req, res, next) => {
+const register = async (req, res, next) => {
   const { password } = req.body;
   if (password.length < 6) {
     throw ErrorHandler(400, "Password is too short");
@@ -19,5 +19,5 @@ const signup = async (req, res, next) => {
 };
 
 module.exports = {
-    signup: ctrlWrapper(signup)
+    register: ctrlWrapper(register)
 }

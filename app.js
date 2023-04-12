@@ -25,7 +25,7 @@ app.use(cors());
 // we will receive a data from the request in the json-format
 app.use(express.json());
 
-app.use("/api/auth", authRouter)
+app.use("/users", authRouter)
 // we're specifying a path and going for router for contacts
 app.use("/api/contacts", contactsRouter);
 

@@ -1,11 +1,11 @@
 const express = require('express');
 const { validateRegSchema, validateLogSchema, validateSubSchema} = require('../../middlewares/validateData');
 const { authenticate } = require('../../middlewares');
-const { signup, login, getCurrent, logout, updateSubscription } = require('../../controllers');
+const { register, login, getCurrent, logout, updateSubscription } = require('../../controllers');
 
 const router = express.Router();
 
-router.post('/signup', validateRegSchema, signup)
+router.post('/register', validateRegSchema, register)
 
 router.post('/login', validateLogSchema, login)
 
