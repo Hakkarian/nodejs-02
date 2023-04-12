@@ -2,25 +2,27 @@
 // ...an express framework, which simplifies the process of buiding an app, by providing tools for http-requests, routing, middlewares and so on
 const express = require("express");
 
-const { listContacts, getContactById, addContact, removeContact, updateContact, updateStatusContact } = require("../../controllers");
-
-const { validateAddSchema, validatePutSchema, validateFavoriteSchema, isValidId} = require("../../middlewares");
+const { isValidId, authenticate } = require("../../middlewares");
+const { validateFavoriteSchema, validatePutSchema, validateAddSchema } = require('../../middlewares/validateData');
+const { listContacts, getContactById, addContact, removeContact, updateContact, updateStatusContact, filterContact } = require("../../controllers/contactsControllers");
 
 // we're instanciating the tool for defining routes and handling handling http-request (further on), also used to define a specific path
 const router = express.Router();
 
 
 
-router.get("/", listContacts);
+router.get("/", authenticate, listContacts);
 
-router.get("/:contactId", isValidId, getContactById);
+router.get("/:contactId", authenticate, isValidId, getContactById);
 
-router.post("/", validateAddSchema, addContact);
+router.get("/", authenticate, filterContact)
 
-router.delete("/:contactId", isValidId, removeContact);
+router.post("/", authenticate, validateAddSchema, addContact);
 
-router.put("/:contactId", isValidId, validatePutSchema, updateContact);
+router.delete("/:contactId", authenticate, isValidId, removeContact);
 
-router.patch("/:contactId/favorite", isValidId, validateFavoriteSchema, updateStatusContact)
+router.put("/:contactId", authenticate, isValidId, validatePutSchema, updateContact);
+
+router.patch("/:contactId/favorite", authenticate, isValidId, validateFavoriteSchema, updateStatusContact)
 
 module.exports = router;

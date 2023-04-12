@@ -1,5 +1,5 @@
-const handleMongooseError = (req, res, next) => {
-    res.status = 400;
+const handleMongooseError = (error, res, next) => {
+    error.status = 400;
     next();
 }
 

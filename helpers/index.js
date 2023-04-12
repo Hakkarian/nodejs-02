@@ -1,9 +1,10 @@
 // here we're commonjs importing a httperror function
 const ErrorHandler = require("./ErrorHandler");
-const handleDublicationError = require('./handleDublicationError');
+const validateError = require('./validateError');
 
+const ctrlWrapper = require('./controllerWrapper');
 
 // and exporting it
 module.exports = {
-    ErrorHandler, handleDublicationError
+    ErrorHandler,  ctrlWrapper, validateError
 }

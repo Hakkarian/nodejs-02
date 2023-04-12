@@ -2,8 +2,8 @@
 
 // this object contains 4** http requests with consectuting messages
 const errorMessages = {
-  400: "missing fields",
-  401: "Unauthorized",
+  400: "Missing fields",
+  401: "Not authorized",
   403: "Forbidden",
   404: "Not Found",
   409: "Conflict",

@@ -36,9 +36,18 @@ app.use((req, res) => {
 // remember calling a function of next(error)? This is it. Here we're passing four arguments and... 
 app.use((err, req, res, next) => {
   // ...destructuring the status and message from an error object
-  const { status = 404, message = "Not found" } = err;
+  const { status = 500, message = "Server error" } = err;
   // and passing to the status method status argument, and sending to the browser json-message
-  res.status(status).json({ message });
+  console.log(err)
+  if (err.name === 'ValidationError') {
+    const errors = {};
+    Object.keys(err.errors).forEach(key => {
+      errors[key] = err.errors[key].message
+    })
+    res.status(400).json(errors)
+  }
+
+  res.status(status).json({message});
 });
 
 // commonjs app export
