@@ -19,6 +19,4 @@ const ctrlWrapper = ctrl => {
     return plcholder
 }
 
-module.exports = {
-    ctrlWrapper
-} 
+module.exports = ctrlWrapper

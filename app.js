@@ -6,6 +6,7 @@ const logger = require("morgan");
 // Cross-Origin-Resourse-Sharing (CORS) allows to allow requests from another domain
 const cors = require("cors");
 require('dotenv').config();
+const authRouter = require('./routes/api/auth');
 // here we're importing a router for contacts in the specified path
 const contactsRouter = require("./routes/api/contacts");
 // we're declaring an app by calling an exress function
@@ -23,6 +24,8 @@ app.use(logger(formatsLogger));
 app.use(cors());
 // we will receive a data from the request in the json-format
 app.use(express.json());
+
+app.use("/users", authRouter)
 // we're specifying a path and going for router for contacts
 app.use("/api/contacts", contactsRouter);
 
@@ -33,9 +36,18 @@ app.use((req, res) => {
 // remember calling a function of next(error)? This is it. Here we're passing four arguments and... 
 app.use((err, req, res, next) => {
   // ...destructuring the status and message from an error object
-  const { status = 404, message = "Not found" } = err;
+  const { status = 500, message = "Server error" } = err;
   // and passing to the status method status argument, and sending to the browser json-message
-  res.status(status).json({ message });
+  console.log(err)
+  if (err.name === 'ValidationError') {
+    const errors = {};
+    Object.keys(err.errors).forEach(key => {
+      errors[key] = err.errors[key].message
+    })
+    res.status(400).json(errors)
+  }
+
+  res.status(status).json({message});
 });
 
 // commonjs app export
