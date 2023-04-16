@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const handleContactDublicationError = require("../middlewares/handleContactDublicationError");
 
 const contactSchema = new Schema(
   {
@@ -26,8 +25,6 @@ const contactSchema = new Schema(
   },
   { versionKey: null }
 );
-
-contactSchema.post("save", handleContactDublicationError);
 
 const Contact = model("contact", contactSchema);
 

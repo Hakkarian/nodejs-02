@@ -24,6 +24,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 // we will receive a data from the request in the json-format
 app.use(express.json());
+app.use(express.static('public'))
 
 app.use("/users", authRouter)
 // we're specifying a path and going for router for contacts
