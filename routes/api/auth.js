@@ -1,18 +1,20 @@
 const express = require('express');
-const { validateRegSchema, validateLogSchema, validateSubSchema} = require('../../middlewares/validateData');
-const { authenticate } = require('../../middlewares');
-const { register, login, getCurrent, logout, updateSubscription } = require('../../controllers');
+const middleware = require('../../middlewares');
+const ctrl = require('../../controllers');
+const { upload } = middleware;
 
 const router = express.Router();
 
-router.post('/register', validateRegSchema, register)
+router.post('/register', middleware.validateRegSchema, ctrl.register)
 
-router.post('/login', validateLogSchema, login)
+router.post('/login', middleware.validateLogSchema, ctrl.login)
 
-router.get('/current', authenticate, getCurrent)
+router.get('/current', middleware.authenticate, ctrl.getCurrent)
 
-router.post('/logout', authenticate, logout)
+router.post('/logout', middleware.authenticate, ctrl.logout)
 
-router.patch('/users/:id', authenticate, validateSubSchema, updateSubscription)
+router.patch('/users/:id', middleware.authenticate, middleware.validateSubSchema, ctrl.updateStatusContact)
+
+router.patch('/avatars', middleware.authenticate, upload.single('avatar'), middleware.checkIfExists, ctrl.updateAvatar)
 
 module.exports = router;

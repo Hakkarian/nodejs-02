@@ -5,7 +5,9 @@ const { ctrlWrapper, ErrorHandler } = require("../../helpers");
 const { User } = require("../../models");
 
 const login = async (req, res, next) => {
+  console.log('before')
   const { email, password } = req.body;
+  console.log('after')
 
   const user = await User.findOne({ email });
 

@@ -1,8 +1,9 @@
 const { Schema, model } = require('mongoose');
 
-const handleEmailDublicationError = require('../middlewares/handleEmailDublicationError');
+const { handleEmailDublicationError } = require('../middlewares/handleEmailDublicationError');
 
 const emailRegexp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+const subList = ["starter", "pro", "business"];
 
 const userSchema = new Schema(
   {
@@ -25,7 +26,7 @@ const userSchema = new Schema(
     subscription: {
       type: String,
       enum: {
-        values: ["starter", "pro", "business"],
+        values: subList,
         message: "Expected 'starter', 'pro' or 'business' subscription",
       },
       default: "starter",
@@ -34,6 +35,10 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    avatarURL: {
+      type: String,
+      required: true
+    }
   },
   { versionKey: false }
 );

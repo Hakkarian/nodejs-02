@@ -1,6 +1,6 @@
 const { listContacts, getContactById, addContact, removeContact, updateContact, updateStatusContact, filterContact } = require('./contactsControllers');
 const {
-    register, login, getCurrent, updateSubscription, logout
+    register, login, getCurrent, updateSubscription, updateAvatar, logout
 } = require("./authControllers");
 module.exports = {
     listContacts,
@@ -9,6 +9,7 @@ module.exports = {
     removeContact,
     updateContact,
     updateStatusContact,
+    updateAvatar,
     filterContact,
     register,
     login,
