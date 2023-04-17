@@ -1,3 +1,81 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const { ctrlWrapper, ErrorHandler } = require("../../helpers");
+const { User } = require("../../models");
+const { login } = require('./login');
+
+jest.mock("../../models");
+jest.mock("jsonwebtoken");
+jest.mock("bcryptjs");
+jest.mock("../../helpers");
+
+describe('login controller', () => {
+    let req, res, next;
+
+    beforeEach(() => {
+        req = {
+            body: {
+                email: "blank1@gmail.com",
+                password: "000000001"
+            },
+        };
+        res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        };
+        next = jest.fn();
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('should login a user succesfully', async () => {
+        const user = {
+            email: "blank1@gmail.com",
+            password: "000000001@gmail.com",
+        };
+
+        console.log("req", req);
+        console.log("res", res);
+
+        User.findOne.mockResolvedValue(user);
+
+        await login(req, res);
+
+        expect(User.findOne).toHaveBeenCalledWith({ email: req.body.email })
+    })
+})
+    // it('should return an error if user is not found', async () => {
+    //     User.findOne.mockResolvedValue(null);
+
+    //     await login(req, res, next);
+
+
+    //     expect(User.findOne).toHaveBeenCalledWith({ email: req.body.email });
+    //     expect(bcrypt.compare).not.toHaveBeenCalled();
+    //     expect(jwt.sign).not.toHaveBeenCalled();
+    //     expect(ErrorHandler).toHaveBeenCalledWith(401, 'Email or password is wrong');
+    //     expect(next).toHaveBeenCalledWith(ErrorHandler())
+    // });
+    // it('should return an error if password is wrong', async () => {
+    //     const user = {
+    //       email: "blank1@gmail.com",
+    //       password: "000000001@gmail.com",
+    //     };
+
+    //     User.findOne.mockResolvedValue(user);
+        
+    //     await login(req, res);
+
+
+    //     expect(User.findOne).toHaveBeenCalledWith({ email: req.body.email });
+    //     expect(jwt.sign).not.toHaveBeenCalled();
+    //     expect(res.status).toHaveBeenCalledWith(401);
+    //     expect(ErrorHandler).toHaveBeenCalledWith(401, "Email or password is wrong")
+    // })
+// })
+
 // const app = require("../../app");
 
 // describe("POST /login", () => {
