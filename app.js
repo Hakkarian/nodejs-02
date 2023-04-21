@@ -5,6 +5,7 @@ const express = require("express");
 const logger = require("morgan");
 // Cross-Origin-Resourse-Sharing (CORS) allows to allow requests from another domain
 const cors = require("cors");
+// this library we've included for proper working of environment variables
 require('dotenv').config();
 const authRouter = require('./routes/api/auth');
 // here we're importing a router for contacts in the specified path
