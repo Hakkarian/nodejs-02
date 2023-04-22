@@ -5,7 +5,7 @@ const { upload } = middleware;
 
 const router = express.Router();
 
-router.post('/signup', middleware.validateRegSchema, ctrl.register)
+router.post('/register', middleware.validateRegSchema, ctrl.register)
 
 router.get('/verify/:verificationToken', ctrl.verifyEmail)
 
