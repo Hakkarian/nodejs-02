@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const { ctrlWrapper, ErrorHandler } = require("../../helpers");
 const { User } = require("../../models");
 
-const login = async (req, res, next) => {
+const login = async (req, res) => {
   console.log('before')
   const { email, password } = req.body;
   console.log('after')
@@ -13,6 +13,10 @@ const login = async (req, res, next) => {
 
   if (!user) {
     throw ErrorHandler(401, "Email or password is wrong");
+  }
+
+  if (!user.verify) {
+    throw ErrorHandler(401, "Please verify your email")
   }
   const { SECRET_KEY } = process.env;
 

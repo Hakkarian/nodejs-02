@@ -6,7 +6,7 @@ module.exports = {
     if (error.code === 11000) {
       next(ErrorHandler(409, "Email in use"));
     }
-    console.log("here")
+
     next();
   }
 }

@@ -3,6 +3,7 @@ const {
   validatePutSchema,
   validateFavoriteSchema,
   validateRegSchema,
+  validateEmailSchema,
   validateLogSchema,
   validateSubSchema
 } = require("./validateData");
@@ -19,6 +20,7 @@ module.exports = {
   validatePutSchema,
   validateFavoriteSchema,
   validateRegSchema,
+  validateEmailSchema,
   validateLogSchema,
   validateSubSchema,
   isValidId,

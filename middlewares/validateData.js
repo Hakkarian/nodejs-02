@@ -56,6 +56,13 @@ module.exports = {
         validateError(req, schema, 400, "Password is required.");
     next();
   },
+  validateEmailSchema: (req, res, next) => {
+    const schema = Joi.object({
+      email: Joi.string().pattern(emailRegexp).required()
+    })
+    !req.body.email && validateError(req, schema, 400, 'missing required field email')
+    next()
+  },
   validateLogSchema: (req, res, next) => {
     const schema = Joi.object({
       email: Joi.string().pattern(emailRegexp).required(),
@@ -65,8 +72,8 @@ module.exports = {
     !email && !password
       ? validateError(req, schema, 400, "missing fields")
       : !email
-      ? validateError(req, schema, 400, "Email is required.")
-      : !password && validateError(req, schema, 400, "Password is required.");
+      ? validateError(req, schema, 400, "missing required field email")
+      : !password && validateError(req, schema, 400, "missing required field password");
     next();
   },
   validateSubSchema: (req, res, next) => {
